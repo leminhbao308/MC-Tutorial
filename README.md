@@ -53,7 +53,7 @@ Dự án **Minecraft Plugin Tutorial Series** bao gồm các phần sau:
 
 ## Đóng Góp
 
-Nếu bạn muốn đóng góp vào dự án này bằng cách cung cấp cải thiện hoặc thêm tính năng mới, chúng tôi rất hoan nghênh đóng góp của bạn. Để đóng góp, bạn có thể làm theo các bước sau:
+Nếu bạn muốn đóng góp vào dự án này bằng cách cung cấp cải thiện hoặc thêm tính năng mới, tôi rất hoan nghênh đóng góp của bạn. Để đóng góp, bạn có thể làm theo các bước sau:
 
 1. **Fork Repository:** Nhấn vào nút "Fork" ở góc trên bên phải của trang này để sao chép dự án vào tài khoản GitHub của bạn.
 
