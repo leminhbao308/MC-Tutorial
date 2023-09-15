@@ -1,88 +1,132 @@
-# MC TUTORIAL 01
+# Hướng Dẫn Bài 2: Sử Dụng Event và Listener trong Minecraft Plugin
 
-## Các bước tạo một Project Minecraft Plugin
+> [!NOTE]
+> Trong bài này, bạn sẽ học cách sử dụng `Event` (sự kiện) và `Listener` (trình lắng nghe) để tương tác với các sự kiện xảy ra trong Minecraft bằng plugin của bạn. <br> 
+> `Event` và `Listener` là một phần quan trọng của việc phát triển plugin, cho phép bạn theo dõi và phản ứng khi xảy ra các sự kiện trong game.
 
-> [!WARNING]  
-> Đây là bài viết dành cho người mới bắt đầu với Minecraft Plugin, nếu bạn đã có kinh nghiệm với Minecraft Plugin thì có thể bỏ qua bài viết này.
+## Bước 1: Chuẩn Bị Môi Trường
 
-### 1. Chuẩn bị
+> [!NOTE]
+> Trước khi bắt đầu, hãy đảm bảo bạn đã cài đặt môi trường phát triển plugin Minecraft và đã tạo một plugin cơ bản theo hướng dẫn trong [Bài 1: Bắt Đầu](https://github.com/leminhbao308/MC-Tutorial/tree/01-create-project).
 
-Để bắt đầu với Minecraft Plugin, bạn cần có một số thứ sau:
+Tạo một package để lưu trữ các event và listener của bạn. <br> 
+Trong bài này, ta sẽ tạo một package tên là `events` để lưu trữ các event và listener. <br>
+Để dễ hiểu hơn, hãy xem qua cây thư mục của plugin của bạn:
 
-- Một IDE (Integrated Development Environment) để code, trong bài viết này mình sẽ sử dụng [IntelliJ IDEA](https://www.jetbrains.com/idea/).
-
-> [!NOTE]  
-> Nếu bạn sử dụng IntelliJ IDEA thì có thể cài đặt [Minecraft Development Plugin](https://plugins.jetbrains.com/plugin/8327-minecraft-development). <br> 
-> Đây là một Plugin Framework cho Minecraft, nó sẽ giúp bạn tạo một Project Minecraft Plugin một cách nhanh chóng và dễ dàng hơn.
-
-- Một server Minecraft để test Plugin của bạn, trong bài viết này mình sẽ sử dụng [PaperMC](https://papermc.io/).
-- Một số kiến thức cơ bản về Java, nếu bạn chưa có kiến thức về Java thì có thể tham khảo tại [đây](https://www.w3schools.com/java/).
-- Một số kiến thức cơ bản về Minecraft Plugin, nếu bạn là người mới thì có thể tham khảo tại [đây](https://www.spigotmc.org/wiki/spigot-plugin-development/).
-
-### 2. Tạo Project
-
-> [!NOTE]  
-> Để tạo một Project Minecraft Plugin, bạn có thể sử dụng [Maven](https://maven.apache.org/) hoặc [Gradle](https://gradle.org/). Trong bài viết này mình sẽ sử dụng Maven.
-
-- Bước 1: Mở IntelliJ IDEA lên và chọn `Create New Project`. Bạn sẽ thấy mục `Minecraft Development`.
-    <img src="image/step1.png">
-- Bước 2: Chọn tên cho Project và nơi lưu Project. <br>
-    <img src="image/step2.png">
-- Bước 3: Chọn `Plugin` và `Paper` (hoặc `Spigot`).
-- Bước 4: Tiếp tục chọn Phiên bản Minecraft, tên Plugin và Class Chính.
-    <img src="image/step3.png">
-- Bước 5: Nhấn `Create` để tạo Project.
-
-> [!NOTE]  
-> Ngoài các tùy chọn trên, bạn có thể tùy chỉnh các mục khác.
-> Điều này sẽ không được đề cập trong bài viết này. <br>
-
-<img src="image/step4.png">
-
-### 3. Cấu trúc Project
-
-Sau khi tạo Project, bạn sẽ thấy cấu trúc Project như sau:
 ```
 .
 ├── pom.xml
 └── src
     └── main
         ├── java
-        │   └── com
-        │       └── example
-        │           └── tutorial
-        │               └── Tutorial.java
+        │   └── cat_std
+        │       └── broseidon
+        │           └── mc_tutorial
+        │               ├── events                      // Đây là package chứa các event và listener của bạn
+        │               │   └── MyEventListener.java    // Đây là listener của bạn
+        │               └── MC_Tutorial.java            // Đây là main class của plugin của bạn
         └── resources
             └── plugin.yml
 ```
 
-- `pom.xml`: File cấu hình Maven.
-- `src/main/java`: Thư mục chứa mã nguồn Java.
-- `src/main/resources`: Thư mục chứa các tài nguyên của Plugin.
-- `src/main/resources/plugin.yml`: File cấu hình Plugin.
-- `src/main/java/com/example/tutorial/Tutorial.java`: Class chính của Plugin.
+## Bước 2: Tạo Một Event Listener
 
-### 4. Plugin.yml
+> [!NOTE]
+> **Event**: Trong Minecraft, Event (sự kiện) là một sự kiện nào đó xảy ra trong game, ví dụ như người chơi đặt một khối, người chơi kết nối vào máy chủ, hoặc một mob bị giết. Plugin của bạn có thể lắng nghe và phản ứng với các sự kiện này.
+>
+>**Listener**: Listener (trình lắng nghe) là một phần của plugin của bạn được sử dụng để lắng nghe và xử lý các sự kiện. Một listener phải triển khai interface `Listener` và sử dụng annotation `@EventHandler` để đánh dấu các phương thức xử lý sự kiện.
 
-File `plugin.yml` là file cấu hình của Plugin, nó sẽ chứa các thông tin về Plugin như tên, phiên bản, tác giả, mô tả, các lệnh, các quyền, ... <br>
-Để tạo một Plugin.yml, bạn có thể sử dụng [Minecraft Development Plugin](https://plugins.jetbrains.com/plugin/8327-minecraft-development) hoặc tạo thủ công. <br>
-
-### 5. Class Chính
-
-Class chính của Plugin sẽ được tạo trong thư mục `src/main/java/com/example/tutorial/Tutorial.java`. <br>
-Đây là nơi bạn sẽ code Plugin của mình. <br>
-
-Cấu trúc Class chính của Plugin sẽ như sau:
 ```java
-package com.example.tutorial;
+package cat_std.broseidon.mc_tutorial.events;
 
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+
+public class MyEventListener implements Listener {
+
+    @EventHandler // Đánh dấu phương thức xử lý sự kiện
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        event.getPlayer().sendMessage("Chào mừng bạn đến với server của Broseidon!"); // Gửi tin nhắn đến người chơi khi họ vào server
+    }
+}
+
+```
+
+> [!NOTE]
+> Trong ví dụ trên, chúng ta đã sử dụng annotation `@EventHandler` để đánh dấu phương thức `onPlayerJoin()` là một phương thức xử lý sự kiện. <br>
+> Phương thức `onPlayerJoin()` sẽ được gọi mỗi khi một người chơi kết nối vào máy chủ.
+> 
+> Bạn có thể tìm hiểu thêm về các sự kiện khác trong Minecraft tại [trang web này](https://bukkit.gamepedia.com/Event_API_Reference).
+
+### Một số Event Phổ Biến
+
+- `PlayerJoinEvent`: Được gọi khi một người chơi kết nối vào máy chủ.
+- `PlayerQuitEvent`: Được gọi khi một người chơi ngắt kết nối khỏi máy chủ.
+- `PlayerInteractEvent`: Được gọi khi một người chơi tương tác với một khối hoặc một item.
+- `PlayerMoveEvent`: Được gọi khi một người chơi di chuyển.
+- `AsyncPlayerChatEvent`: Được gọi khi một người chơi gửi một tin nhắn trong chat.
+- `BlockBreakEvent`: Được gọi khi một khối bị phá hủy.
+- `BlockPlaceEvent`: Được gọi khi một khối được đặt.
+- Và nhiều sự kiện khác nữa...
+
+### Tạo Một Event Tùy Chỉnh (Optional)
+
+Nếu bạn muốn tạo một event tùy chỉnh để sử dụng trong plugin của bạn, bạn có thể làm như sau:
+
+```java
+package cat_std.broseidon.mc_tutorial.events;
+
+import org.bukkit.event.Event;
+import org.bukkit.event.HandlerList;
+import org.jetbrains.annotations.NotNull;
+
+public class CustomEvent extends Event {
+
+    private static final HandlerList handlers = new HandlerList();
+    private String message;
+
+    public CustomEvent(String example) {
+        message = example;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
+    @Override
+    public @NotNull HandlerList getHandlers() {
+        return handlers;
+    }
+}
+```
+
+> [!NOTE]
+> Trong ví dụ trên, chúng ta đã tạo một event tùy chỉnh có tên là `CustomEvent`. <br>
+> Bạn có thể tìm hiểu cách tạo event tùy chỉnh tại [trang web này](https://bukkit.gamepedia.com/Event_API_Reference#Creating_Custom_Events).
+
+## Bước 3: Đăng Ký Listener
+
+Khi bạn đã tạo Listener của mình, bạn cần đăng ký nó để plugin của bạn có thể lắng nghe và phản ứng với các sự kiện.
+
+1. Trong class chính của plugin của bạn (thường là main class), tại phương thức `onEnable()` ta sẽ đăng ký listener của mình.
+
+```java
+package cat_std.broseidon.mc_tutorial;
+
+import cat_std.broseidon.mc_tutorial.events.MyEventListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Tutorial extends JavaPlugin {
+public final class MC_Tutorial extends JavaPlugin {
 
     @Override
     public void onEnable() {
         // Method này sẽ được gọi khi Plugin được bật
+        getServer().getPluginManager().registerEvents(new MyEventListener(), this); // Đăng ký listener
     }
 
     @Override
@@ -90,36 +134,57 @@ public final class Tutorial extends JavaPlugin {
         // Method này sẽ được gọi khi Plugin được tắt
     }
 }
+
 ```
 
-### 6. Build Project
+2. Bây giờ listener của bạn đã được đăng ký và sẽ lắng nghe các sự kiện bạn đã xác định trong `MyEventListener`.
 
-Để build Project thành file JAR, bạn có thể sử dụng Maven hoặc Gradle. <br>
-Trong bài viết này mình sẽ sử dụng Maven. <br>
+> [!NOTE]
+> Trong ví dụ trên, chúng ta đã sử dụng phương thức `registerEvents()` để đăng ký listener của mình. <br>
+> Bạn có thể tìm hiểu thêm về cách đăng ký listener tại [trang web này](https://bukkit.gamepedia.com/Event_API_Reference#Registering_Events).
 
-Để build Project, bạn có thể sử dụng các lệnh sau:
-- `mvn clean`: Xóa các file đã build.
-- `mvn package`: Build Project.
+## Bước 4: Lắng Nghe Event Tùy Chỉnh (Optional)
 
-Sau khi build Project, bạn sẽ thấy file JAR của Plugin trong thư mục `target`. <br>
+Nếu bạn muốn các listener của bạn lắng nghe các event tùy chỉnh, bạn có thể làm như sau:
 
-### 7. Test Plugin
+1. Tạo một class mới để đại diện cho sự kiện của bạn, ví dụ: `CustomEvent.java` mà ta đã tạo ở [thao tác trên](#bước-2-tạo-một-event-listener)
 
-Để test Plugin, bạn cần có một server Minecraft. <br>
-Trong bài viết này mình sẽ sử dụng [PaperMC](https://papermc.io/). <br>
+2. Trong listener của bạn, bạn có thể tạo và gửi sự kiện này khi điều kiện cụ thể xảy ra.
 
-Hãy thiết lập server Minecraft của bạn và chạy server. <br>
+```java
+package cat_std.broseidon.mc_tutorial.events;
 
-Sau khi server đã chạy, hãy copy file JAR của Plugin vào thư mục `plugins` của server. <br>
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 
-Sau khi copy file JAR của Plugin vào thư mục `plugins`, hãy khởi động lại server. <br>
+public class MyEventListener implements Listener {
 
-Nếu không có lỗi nào xảy ra, bạn đã thành công. <br>
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        event.getPlayer().sendMessage("Chào mừng bạn đến với server của Broseidon!"); // Gửi tin nhắn đến người chơi khi họ vào server
+    }
+    
+    @EventHandler
+    public void onCustomEvent(CustomEvent event) { // Đây là một ví dụ về việc sử dụng Custom Event
+        System.out.println(event.getMessage());
+    }
+}
+```
 
-## Lời Kết
+## Bước 5: Chạy Plugin và Kiểm Tra
 
-Đây là bài viết đầu tiên trong series Minecraft Plugin Tutorial. <br>
-Nếu bạn có bất kì thắc mắc nào, hãy liên hệ với mình qua [Discord](https://discord.com/users/873024375685775361)
+1. Đảm bảo bạn đã sao chép plugin của bạn vào thư mục `plugins` của máy chủ Minecraft.
+
+2. Khởi động lại máy chủ Minecraft của bạn hoặc sử dụng lệnh `/reload` để nạp lại plugin.
+
+3. Thực hiện hành động hoặc điều kiện mà bạn đã xác định trong listener để kiểm tra sự hoạt động của plugin.
+
+## Kết Luận
+
+> Bài hướng dẫn này đã giới thiệu cho bạn cách sử dụng event và listener trong plugin Minecraft của bạn. Sử dụng event và listener là cách mạnh mẽ để tương tác với sự kiện trong game và tạo ra các tính năng tùy chỉnh thú vị. Hãy tiếp tục học và phát triển plugin của bạn! Để biết thêm thông tin về cách sử dụng event và listener, bạn có thể xem thêm [tài liệu chính thức của Bukkit](https://bukkit.gamepedia.com/Event_API_Reference). <br>
+> 
+> Nếu bạn có bất kì thắc mắc nào, hãy liên hệ với mình qua [Discord](https://discord.com/users/873024375685775361)
 
 > [!IMPORTANT]  
 > Bài viết này được viết bởi [Lê Minh Bảo]() <br>
