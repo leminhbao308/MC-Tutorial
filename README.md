@@ -36,8 +36,7 @@
 > [!NOTE]  
 > Ngoài các tùy chọn trên, bạn có thể tùy chỉnh các mục khác
 > Điều này sẽ không được đề cập trong bài viết này. <br>
-
-<img src="image/step4.png">
+    <img src="image/step4.png">
 
 ### 3. Cấu trúc Project
 
