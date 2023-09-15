@@ -48,10 +48,10 @@ Sau khi tạo Project, bạn sẽ thấy cấu trúc Project như sau:
 └── src
     └── main
         ├── java
-        │   └── com
-        │       └── example
-        │           └── tutorial
-        │               └── Tutorial.java
+        │   └── cat_std
+        │       └── broseidon
+        │           └── mc_tutorial
+        │               └── MC_Tutorial.java
         └── resources
             └── plugin.yml
 ```
