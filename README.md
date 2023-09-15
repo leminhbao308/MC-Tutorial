@@ -34,7 +34,7 @@
 - Bước 5: Nhấn `Create` để tạo Project.
 
 > [!NOTE]  
-> Ngoài các tùy chọn trên, bạn có thể tùy chỉnh các mục khác <br>
+> Ngoài các tùy chọn trên, bạn có thể tùy chỉnh các mục khác.
 > Điều này sẽ không được đề cập trong bài viết này.
     <img src="image/step4.png">
 
