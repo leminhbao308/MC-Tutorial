@@ -147,7 +147,7 @@ public final class MC_Tutorial extends JavaPlugin {
 
 Nếu bạn muốn các listener của bạn lắng nghe các event tùy chỉnh, bạn có thể làm như sau:
 
-1. Tạo một class mới để đại diện cho sự kiện của bạn, ví dụ: `CustomEvent.java` mà ta đã tạo ở [thao tác trên](#bước-2-tạo-một-event-listener)
+1. Tạo một class mới để đại diện cho sự kiện của bạn, ví dụ: `CustomEvent.java` mà ta đã tạo ở [thao tác trên](#tạo-một-event-tùy-chỉnh-optional)
 
 2. Trong listener của bạn, bạn có thể tạo và gửi sự kiện này khi điều kiện cụ thể xảy ra.
 
