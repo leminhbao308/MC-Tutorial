@@ -46,10 +46,12 @@ Dự án **Minecraft Plugin Tutorial Series** bao gồm các phần sau:
    ```shell
    git checkout branch <branch-name...>
    ```
+   Hoặc xem trực tiếp trên Github: <br>
+   <img src="https://i.imgur.com/DWSu7f0.png">
 
-3. **Mở File README:** Mỗi phần sẽ có một tệp README chứa hướng dẫn chi tiết về nội dung của phần đó. Mở tệp README để bắt đầu học.
+4. **Mở File README:** Mỗi phần sẽ có một tệp README chứa hướng dẫn chi tiết về nội dung của phần đó. Mở tệp README để bắt đầu học.
 
-4. **Bắt Đầu Lập Trình:** Theo hướng dẫn trong tệp README để bắt đầu lập trình plugin Minecraft của bạn.
+5. **Bắt Đầu Lập Trình:** Theo hướng dẫn trong tệp README để bắt đầu lập trình plugin Minecraft của bạn.
 
 ## Đóng Góp
 
