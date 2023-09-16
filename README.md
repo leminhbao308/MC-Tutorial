@@ -1,19 +1,19 @@
-# Hướng Dẫn Bài 2: Sử Dụng Event và Listener trong Minecraft Plugin
+# Mini Project: Welcome và Goodbye Message trong Minecraft Plugin
 
-> [!NOTE]
-> Trong bài này, bạn sẽ học cách sử dụng `Event` (sự kiện) và `Listener` (trình lắng nghe) để tương tác với các sự kiện xảy ra trong Minecraft bằng plugin của bạn. <br> 
-> `Event` và `Listener` là một phần quan trọng của việc phát triển plugin, cho phép bạn theo dõi và phản ứng khi xảy ra các sự kiện trong game.
+> **[!NOTE]**  
+> Trong dự án này, bạn sẽ tạo một plugin Minecraft nhỏ để hiển thị thông điệp "Chào mừng bạn đến với server!" khi người chơi tham gia và "Hẹn gặp lại bạn lần sau!" khi người chơi thoát khỏi server.
 
-## Bước 1: Chuẩn Bị Môi Trường
+## Bước 1: Chuẩn Bị
 
-> [!NOTE]
-> Trước khi bắt đầu, hãy đảm bảo bạn đã cài đặt môi trường phát triển plugin Minecraft và đã tạo một plugin cơ bản theo hướng dẫn trong [Bài 1: Bắt Đầu](https://github.com/leminhbao308/MC-Tutorial/tree/01-create-project).
+> **[!NOTE]**  
+> Để bắt đầu, đảm bảo bạn đã cài đặt môi trường phát triển plugin Minecraft và đã tạo một plugin cơ bản theo hướng dẫn trong [Bài 1: Bắt Đầu](https://github.com/leminhbao308/MC-Tutorial/tree/01-create-project).
+> Ngoài ra, bạn cũng cần phải có kiến thức cơ bản về [Event và Listener](https://github.com/leminhbao308/MC-Tutorial/tree/02-event-and-listener).
 
-Tạo một package để lưu trữ các event và listener của bạn. <br> 
-Trong bài này, ta sẽ tạo một package tên là `events` để lưu trữ các event và listener. <br>
-Để dễ hiểu hơn, hãy xem qua cây thư mục của plugin của bạn:
+### Tạo các class Event
 
-```
+Trong package `events` ta đã tạo từ trước, tạo các class sau:
+
+```plaintext
 .
 ├── pom.xml
 └── src
@@ -22,19 +22,24 @@ Trong bài này, ta sẽ tạo một package tên là `events` để lưu trữ 
         │   └── cat_std
         │       └── broseidon
         │           └── mc_tutorial
-        │               ├── events                      // Đây là package chứa các event và listener của bạn
-        │               │   └── MyEventListener.java    // Đây là listener của bạn
-        │               └── MC_Tutorial.java            // Đây là main class của plugin của bạn
+        │               ├── events                      
+        │               │   ├── WelcomeListener.java  // Đây là class để xử lý sự kiện khi người chơi tham gia vào server
+        │               │   └── GoodbyeListener.java  // Đây là class để xử lý sự kiện khi người chơi thoát khỏi server
+        │               └── MC_Tutorial.java
         └── resources
             └── plugin.yml
 ```
 
-## Bước 2: Tạo Một Event Listener
+## Bước 2: Tạo Event Listener
 
-> [!NOTE]
-> **Event**: Trong Minecraft, Event (sự kiện) là một sự kiện nào đó xảy ra trong game, ví dụ như người chơi đặt một khối, người chơi kết nối vào máy chủ, hoặc một mob bị giết. Plugin của bạn có thể lắng nghe và phản ứng với các sự kiện này.
->
->**Listener**: Listener (trình lắng nghe) là một phần của plugin của bạn được sử dụng để lắng nghe và xử lý các sự kiện. Một listener phải triển khai interface `Listener` và sử dụng annotation `@EventHandler` để đánh dấu các phương thức xử lý sự kiện.
+> **[!NOTE]**  
+> ### Kiến thức đã biết:
+> **Event**: Trong Minecraft, Event (sự kiện) là một sự kiện nào đó xảy ra trong game, ví dụ như người chơi đặt một khối, người chơi kết nối vào máy chủ, hoặc một mob bị giết. Plugin của bạn có thể lắng nghe và phản ứng với các sự kiện này.  
+> **Listener**: Listener (trình lắng nghe) là một phần của plugin của bạn được sử dụng để lắng nghe và xử lý các sự kiện. Một listener phải triển khai interface `Listener` và sử dụng annotation `@EventHandler` để đánh dấu các phương thức xử lý sự kiện.
+
+### Tạo Listener Cho Welcome Message
+
+1. Tạo một class mới trong package `events` để đại diện cho listener của bạn, ví dụ: `WelcomeListener.java`.
 
 ```java
 package cat_std.broseidon.mc_tutorial.events;
@@ -43,82 +48,46 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class MyEventListener implements Listener {
+public class WelcomeListener implements Listener {
 
-    @EventHandler // Đánh dấu phương thức xử lý sự kiện
+    @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        event.getPlayer().sendMessage("Chào mừng bạn đến với server của Broseidon!"); // Gửi tin nhắn đến người chơi khi họ vào server
+        event.getPlayer().sendMessage("Chào mừng "+event.getPlayer().getName()+" đến với server!"); // Gửi tin nhắn đến người chơi khi họ vào server
     }
 }
-
 ```
 
-> [!NOTE]
-> Trong ví dụ trên, chúng ta đã sử dụng annotation `@EventHandler` để đánh dấu phương thức `onPlayerJoin()` là một phương thức xử lý sự kiện. <br>
-> Phương thức `onPlayerJoin()` sẽ được gọi mỗi khi một người chơi kết nối vào máy chủ.
-> 
-> Bạn có thể tìm hiểu thêm về các sự kiện khác trong Minecraft tại [trang web này](https://bukkit.gamepedia.com/Event_API_Reference).
+### Tạo Listener Cho Goodbye Message
 
-### Một số Event Phổ Biến
-
-- `PlayerJoinEvent`: Được gọi khi một người chơi kết nối vào máy chủ.
-- `PlayerQuitEvent`: Được gọi khi một người chơi ngắt kết nối khỏi máy chủ.
-- `PlayerInteractEvent`: Được gọi khi một người chơi tương tác với một khối hoặc một item.
-- `PlayerMoveEvent`: Được gọi khi một người chơi di chuyển.
-- `AsyncPlayerChatEvent`: Được gọi khi một người chơi gửi một tin nhắn trong chat.
-- `BlockBreakEvent`: Được gọi khi một khối bị phá hủy.
-- `BlockPlaceEvent`: Được gọi khi một khối được đặt.
-- Và nhiều sự kiện khác nữa...
-
-### Tạo Một Event Tùy Chỉnh (Optional)
-
-Nếu bạn muốn tạo một event tùy chỉnh để sử dụng trong plugin của bạn, bạn có thể làm như sau:
+2. Tạo một class mới trong package `events` để đại diện cho listener của bạn, ví dụ: `GoodbyeListener.java`.
 
 ```java
 package cat_std.broseidon.mc_tutorial.events;
 
-import org.bukkit.event.Event;
-import org.bukkit.event.HandlerList;
-import org.jetbrains.annotations.NotNull;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerQuitEvent;
 
-public class CustomEvent extends Event {
+public class GoodbyeListener implements Listener {
 
-    private static final HandlerList handlers = new HandlerList();
-    private String message;
-
-    public CustomEvent(String example) {
-        message = example;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public static HandlerList getHandlerList() {
-        return handlers;
-    }
-
-    @Override
-    public @NotNull HandlerList getHandlers() {
-        return handlers;
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        event.getPlayer().sendMessage("Hẹn gặp lại bạn lần sau!"); // Gửi tin nhắn đến người chơi khi họ thoát khỏi server
     }
 }
 ```
-
-> [!NOTE]
-> Trong ví dụ trên, chúng ta đã tạo một event tùy chỉnh có tên là `CustomEvent`. <br>
-> Bạn có thể tìm hiểu cách tạo event tùy chỉnh tại [trang web này](https://bukkit.gamepedia.com/Event_API_Reference#Creating_Custom_Events).
 
 ## Bước 3: Đăng Ký Listener
 
 Khi bạn đã tạo Listener của mình, bạn cần đăng ký nó để plugin của bạn có thể lắng nghe và phản ứng với các sự kiện.
 
-1. Trong class chính của plugin của bạn (thường là main class), tại phương thức `onEnable()` ta sẽ đăng ký listener của mình.
+1. Trong class chính của plugin của bạn (thường là main class, ví dụ: `MC_Tutorial.java`), tại phương thức `onEnable()`, ta sẽ đăng ký các listener của mình.
 
 ```java
 package cat_std.broseidon.mc_tutorial;
 
-import cat_std.broseidon.mc_tutorial.events.MyEventListener;
+import cat_std.broseidon.mc_tutorial.events.GoodbyeListener;
+import cat_std.broseidon.mc_tutorial.events.WelcomeListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MC_Tutorial extends JavaPlugin {
@@ -126,7 +95,8 @@ public final class MC_Tutorial extends JavaPlugin {
     @Override
     public void onEnable() {
         // Method này sẽ được gọi khi Plugin được bật
-        getServer().getPluginManager().registerEvents(new MyEventListener(), this); // Đăng ký listener
+        getServer().getPluginManager().registerEvents(new WelcomeListener(), this);
+        getServer().getPluginManager().registerEvents(new GoodbyeListener(), this);
     }
 
     @Override
@@ -137,40 +107,16 @@ public final class MC_Tutorial extends JavaPlugin {
 
 ```
 
-2. Bây giờ listener của bạn đã được đăng ký và sẽ lắng nghe các sự kiện bạn đã xác định trong `MyEventListener`.
+## Bước 4: Build Plugin
 
-> [!NOTE]
-> Trong ví dụ trên, chúng ta đã sử dụng phương thức `registerEvents()` để đăng ký listener của mình. <br>
-> Bạn có thể tìm hiểu thêm về cách đăng ký listener tại [trang web này](https://bukkit.gamepedia.com/Event_API_Reference#Registering_Events).
+1. Đảm bảo bạn đã cài đặt Maven và JDK 8.
+2. Mở terminal và chạy lệnh sau để build plugin của bạn:
 
-## Bước 4: Lắng Nghe Event Tùy Chỉnh (Optional)
-
-Nếu bạn muốn các listener của bạn lắng nghe các event tùy chỉnh, bạn có thể làm như sau:
-
-1. Tạo một class mới để đại diện cho sự kiện của bạn, ví dụ: `CustomEvent.java` mà ta đã tạo ở [thao tác trên](#tạo-một-event-tùy-chỉnh-optional)
-
-2. Trong listener của bạn, bạn có thể tạo và gửi sự kiện này khi điều kiện cụ thể xảy ra.
-
-```java
-package cat_std.broseidon.mc_tutorial.events;
-
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
-
-public class MyEventListener implements Listener {
-
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        event.getPlayer().sendMessage("Chào mừng bạn đến với server của Broseidon!"); // Gửi tin nhắn đến người chơi khi họ vào server
-    }
-    
-    @EventHandler
-    public void onCustomEvent(CustomEvent event) { // Đây là một ví dụ về việc sử dụng Custom Event
-        System.out.println(event.getMessage());
-    }
-}
+```bash
+mvn clean package
 ```
+
+3. Nếu build thành công, bạn sẽ thấy thông báo `BUILD SUCCESS` trong terminal và file `.jar` của bạn sẽ được tạo ra trong thư mục `target` của project.
 
 ## Bước 5: Chạy Plugin và Kiểm Tra
 
@@ -178,13 +124,27 @@ public class MyEventListener implements Listener {
 
 2. Khởi động lại máy chủ Minecraft của bạn hoặc sử dụng lệnh `/reload` để nạp lại plugin.
 
-3. Thực hiện hành động hoặc điều kiện mà bạn đã xác định trong listener để kiểm tra sự hoạt động của plugin.
+3. Khi một người chơi tham gia vào hoặc rời khỏi máy chủ, plugin của bạn sẽ gửi các thông điệp welcome và goodbye tới họ.
 
 ## Kết Luận
 
-> Bài hướng dẫn này đã giới thiệu cho bạn cách sử dụng event và listener trong plugin Minecraft của bạn. Sử dụng event và listener là cách mạnh mẽ để tương tác với sự kiện trong game và tạo ra các tính năng tùy chỉnh thú vị. Hãy tiếp tục học và phát triển plugin của bạn! Để biết thêm thông tin về cách sử dụng event và listener, bạn có thể xem thêm [tài liệu chính thức của Bukkit](https://bukkit.gamepedia.com/Event_API_Reference). <br>
+> [!NOTE]
+> Bài viết này đã giới thiệu cho bạn cách sử dụng event và listener trong plugin Minecraft của bạn để tạo các tính năng tùy chỉnh như welcome và goodbye message. Các bước quy trình từ việc chuẩn bị kiến thức, tạo sự kiện cho đến đăng ký listener đã được thực hiện.
+
+Các điểm chính đã học trong bài này:
+
+- Sử dụng Event để lắng nghe các sự kiện trong Minecraft.
+- Tạo Listener để xử lý các sự kiện và phản ứng tới chúng.
+- Đăng ký Listener trong plugin của bạn để kích hoạt các sự kiện.
+
+> [!NOTE]
+> Tiếp tục nghiên cứu và phát triển plugin của bạn. Có rất nhiều sự kiện khác trong Minecraft mà bạn có thể lắng nghe và sử dụng để tạo ra các tính năng tùy chỉnh thú vị. 
 > 
-> Nếu bạn có bất kì thắc mắc nào, hãy liên hệ với mình qua [Discord](https://discord.com/users/873024375685775361)
+>Hãy xem thêm [tài liệu chính thức của Bukkit tại đây](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/package-summary.html) để tìm hiểu thêm về event và listener.
+
+Nếu bạn gặp bất kỳ khó khăn hoặc có bất kỳ câu hỏi nào, đừng ngần ngại liên hệ với tôi qua [Discord](https://discord.com/users/873024375685775361).
+
+Cảm ơn bạn đã tham gia bài học này và chúc bạn thành công trong việc phát triển plugin Minecraft của bạn!
 
 > [!IMPORTANT]  
 > Bài viết này được viết bởi [Lê Minh Bảo]() <br>
