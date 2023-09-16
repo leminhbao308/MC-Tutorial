@@ -78,6 +78,25 @@ public class GoodbyeListener implements Listener {
 }
 ```
 
+> [!WARNING]
+> ### Câu Hỏi & Trả Lời (Q&A)
+>
+> #### Câu hỏi: Tại sao chúng ta cần tách các Listener thành các class riêng biệt?
+>
+> **Trả lời:** Tách các Listener thành các class riêng biệt là một thực hành quan trọng trong phát triển plugin Minecraft với event và listener. Dưới đây là một số lý do tại sao:
+>
+> 1. **Tính Tách Biệt Các Chức Năng:** Mỗi Listener thường xử lý một loại sự kiện cụ thể. Bằng cách tách biệt chúng thành các class riêng biệt, bạn giữ cho mã nguồn dễ quản lý hơn và tạo sự rõ ràng giữa các chức năng khác nhau của plugin.
+>
+> 2. **Dễ Bảo Trì và Sửa Lỗi:** Khi có lỗi xảy ra hoặc bạn cần cập nhật logic cho một loại sự kiện, bạn có thể tìm và chỉnh sửa class Listener tương ứng mà không ảnh hưởng đến các sự kiện khác.
+>
+> 3. **Sáng Tạo và Mở Rộng:** Bằng cách tạo các class Listener riêng biệt, bạn dễ dàng mở rộng plugin của bạn bằng cách thêm các sự kiện và tính năng mới mà không cần thay đổi quá nhiều code hiện tại.
+>
+> 4. **Tăng Tính Module:** Tách các Listener thành các class riêng biệt giúp bạn duy trì tính module trong code của bạn. Điều này có nghĩa là bạn có thể kích hoạt hoặc vô hiệu hóa các tính năng cụ thể bằng cách chỉ cần thêm hoặc xóa các class Listener mà không ảnh hưởng đến phần còn lại của plugin.
+>
+> 5. **Hiệu Suất Tốt Hơn:** Khi bạn tách các Listener ra khỏi một class chung lớn, Minecraft sẽ dễ dàng quản lý và triển khai sự kiện, cải thiện hiệu suất tổng thể của máy chủ.
+>
+> Vì vậy, tách các Listener thành các class riêng biệt không chỉ là một phong cách lập trình hay, mà còn giúp làm cho plugin của bạn dễ dàng quản lý, mở rộng và bảo trì hơn.
+
 ## Bước 3: Đăng Ký Listener
 
 Khi bạn đã tạo Listener của mình, bạn cần đăng ký nó để plugin của bạn có thể lắng nghe và phản ứng với các sự kiện.
