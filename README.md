@@ -137,6 +137,7 @@ mvn clean package
 ```
 
 3. Nếu build thành công, bạn sẽ thấy thông báo `BUILD SUCCESS` trong terminal và file `.jar` của bạn sẽ được tạo ra trong thư mục `target` của project.
+4. Hoặc bạn có thể tải về plugin tôi đã build sẵn [tại đường dẫn này](https://github.com/leminhbao308/MC-Tutorial/blob/02-welcome-goodbye-plugin/target/MC_Tutorial-1.0.0.jar).
 
 ## Bước 5: Chạy Plugin và Kiểm Tra
 
