@@ -6,7 +6,8 @@
 ## Bước 1: Chuẩn Bị
 
 > [!NOTE]  
-> Để bắt đầu, đảm bảo bạn đã cài đặt môi trường phát triển plugin Minecraft và đã tạo một plugin cơ bản theo hướng dẫn trong [Bài 1: Bắt Đầu](https://github.com/leminhbao308/MC-Tutorial/tree/01-create-project). <br>
+> Để bắt đầu, đảm bảo bạn đã cài đặt môi trường phát triển plugin Minecraft và đã tạo một plugin cơ bản theo hướng dẫn trong [Bài 1: Bắt Đầu](https://github.com/leminhbao308/MC-Tutorial/tree/01-create-project).
+> 
 > Ngoài ra, bạn cũng cần phải có kiến thức cơ bản về [Event và Listener](https://github.com/leminhbao308/MC-Tutorial/tree/02-event-and-listener).
 
 ### Tạo các class Event
