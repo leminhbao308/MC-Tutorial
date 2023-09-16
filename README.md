@@ -1,11 +1,11 @@
 # Mini Project: Welcome và Goodbye Message trong Minecraft Plugin
 
-> **[!NOTE]**  
+> [!NOTE]
 > Trong dự án này, bạn sẽ tạo một plugin Minecraft nhỏ để hiển thị thông điệp "Chào mừng bạn đến với server!" khi người chơi tham gia và "Hẹn gặp lại bạn lần sau!" khi người chơi thoát khỏi server.
 
 ## Bước 1: Chuẩn Bị
 
-> **[!NOTE]**  
+> [!NOTE]  
 > Để bắt đầu, đảm bảo bạn đã cài đặt môi trường phát triển plugin Minecraft và đã tạo một plugin cơ bản theo hướng dẫn trong [Bài 1: Bắt Đầu](https://github.com/leminhbao308/MC-Tutorial/tree/01-create-project).
 > Ngoài ra, bạn cũng cần phải có kiến thức cơ bản về [Event và Listener](https://github.com/leminhbao308/MC-Tutorial/tree/02-event-and-listener).
 
@@ -32,7 +32,7 @@ Trong package `events` ta đã tạo từ trước, tạo các class sau:
 
 ## Bước 2: Tạo Event Listener
 
-> **[!NOTE]**  
+> [!NOTE]
 > ### Kiến thức đã biết:
 > **Event**: Trong Minecraft, Event (sự kiện) là một sự kiện nào đó xảy ra trong game, ví dụ như người chơi đặt một khối, người chơi kết nối vào máy chủ, hoặc một mob bị giết. Plugin của bạn có thể lắng nghe và phản ứng với các sự kiện này.  
 > **Listener**: Listener (trình lắng nghe) là một phần của plugin của bạn được sử dụng để lắng nghe và xử lý các sự kiện. Một listener phải triển khai interface `Listener` và sử dụng annotation `@EventHandler` để đánh dấu các phương thức xử lý sự kiện.
