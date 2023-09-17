@@ -1,17 +1,21 @@
-# Hướng Dẫn Bài 2: Sử Dụng Event và Listener trong Minecraft Plugin
+# MC TUTORIAL 03: COMMANDS AND PERMISSIONS (Part 1)
 
 > [!NOTE]
-> Trong bài này, bạn sẽ học cách sử dụng `Event` (sự kiện) và `Listener` (trình lắng nghe) để tương tác với các sự kiện xảy ra trong Minecraft bằng plugin của bạn. <br> 
-> `Event` và `Listener` là một phần quan trọng của việc phát triển plugin, cho phép bạn theo dõi và phản ứng khi xảy ra các sự kiện trong game.
+> Trong bài này, bạn sẽ học cách tạo và quản lý các command cho plugin Minecraft của mình. <br>
+> Command cho phép bạn tương tác với plugin qua các lệnh sẽ được sử dụng trong game hoặc từ console.
 
-## Bước 1: Chuẩn Bị Môi Trường
+## Một Command Đơn Giản
+
+Để tạo một command cơ bản cho plugin của bạn, bạn cần thực hiện các bước sau:
+
+1. **Tạo Một Class Cho Command**: Tạo một class để đại diện cho command của bạn. 
 
 > [!NOTE]
-> Trước khi bắt đầu, hãy đảm bảo bạn đã cài đặt môi trường phát triển plugin Minecraft và đã tạo một plugin cơ bản theo hướng dẫn trong [Bài 1: Bắt Đầu](https://github.com/leminhbao308/MC-Tutorial/tree/01-create-project).
-
-Tạo một package để lưu trữ các event và listener của bạn. <br> 
-Trong bài này, ta sẽ tạo một package tên là `events` để lưu trữ các event và listener. <br>
-Để dễ hiểu hơn, hãy xem qua cây thư mục của plugin của bạn:
+> Bạn nên đặt tên class theo tên của command để dễ dàng quản lý và tìm kiếm. <br>
+> Ví dụ, nếu bạn muốn tạo command `/hello`, bạn có thể tạo một class có tên là `HelloCommand`.
+> 
+> Tương tự như Event, hãy tạo một package riêng cho các command của bạn để dễ dàng quản lý. <br>
+> Trong ví dụ này, tôi sẽ tạo một package có tên là `cat_std.broseidon.mc_tutorial.commands`.
 
 ```
 .
@@ -22,102 +26,63 @@ Trong bài này, ta sẽ tạo một package tên là `events` để lưu trữ 
         │   └── cat_std
         │       └── broseidon
         │           └── mc_tutorial
-        │               ├── events                      // Đây là package chứa các event và listener của bạn
-        │               │   └── MyEventListener.java    // Đây là listener của bạn
-        │               └── MC_Tutorial.java            // Đây là main class của plugin của bạn
+        │               ├── commands                    // Đây là package chứa các command của bạn
+        │               │   └── HelloCommand.java       // Đây là command của bạn
+        │               ├── events                      
+        │               │   └── MyEventListener.java    
+        │               └── MC_Tutorial.java            
         └── resources
             └── plugin.yml
 ```
 
-## Bước 2: Tạo Một Event Listener
+> Sau khi tạo class, bạn cần extends class `CommandExecutor` và override phương thức `onCommand()`. <br>
+> Trong phương thức `onCommand()`, bạn có thể kiểm tra label của command, có thể hiểu đây là tên của command của bạn. <br>
+> Nếu label của command trùng với tên của command của bạn, bạn có thể thực hiện các hành động mong muốn.
 
-> [!NOTE]
-> **Event**: Trong Minecraft, Event (sự kiện) là một sự kiện nào đó xảy ra trong game, ví dụ như người chơi đặt một khối, người chơi kết nối vào máy chủ, hoặc một mob bị giết. Plugin của bạn có thể lắng nghe và phản ứng với các sự kiện này.
->
->**Listener**: Listener (trình lắng nghe) là một phần của plugin của bạn được sử dụng để lắng nghe và xử lý các sự kiện. Một listener phải triển khai interface `Listener` và sử dụng annotation `@EventHandler` để đánh dấu các phương thức xử lý sự kiện.
-
-```java
-package cat_std.broseidon.mc_tutorial.events;
-
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
-
-public class MyEventListener implements Listener {
-
-    @EventHandler // Đánh dấu phương thức xử lý sự kiện
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        event.getPlayer().sendMessage("Chào mừng bạn đến với server của Broseidon!"); // Gửi tin nhắn đến người chơi khi họ vào server
-    }
-}
-
-```
-
-> [!NOTE]
-> Trong ví dụ trên, chúng ta đã sử dụng annotation `@EventHandler` để đánh dấu phương thức `onPlayerJoin()` là một phương thức xử lý sự kiện. <br>
-> Phương thức `onPlayerJoin()` sẽ được gọi mỗi khi một người chơi kết nối vào máy chủ.
+> [!IMPORTANT]
+> ### Giải thích về phương thức `onCommand()`
+> Các tham số của phương thức `onCommand()`:
+> - `CommandSender sender`: Đại diện cho người gửi command. Có thể là người chơi hoặc console.
+> - `Command command`: Đại diện cho command được gửi.
+> - `String label`: Đại diện cho tên của command được gửi.
+> - `String[] args`: Đại diện cho các tham số được gửi kèm theo command.
 > 
-> Bạn có thể tìm hiểu thêm về các sự kiện khác trong Minecraft tại [trang web này](https://bukkit.gamepedia.com/Event_API_Reference).
-
-### Một số Event Phổ Biến
-
-- `PlayerJoinEvent`: Được gọi khi một người chơi kết nối vào máy chủ.
-- `PlayerQuitEvent`: Được gọi khi một người chơi ngắt kết nối khỏi máy chủ.
-- `PlayerInteractEvent`: Được gọi khi một người chơi tương tác với một khối hoặc một item.
-- `PlayerMoveEvent`: Được gọi khi một người chơi di chuyển.
-- `AsyncPlayerChatEvent`: Được gọi khi một người chơi gửi một tin nhắn trong chat.
-- `BlockBreakEvent`: Được gọi khi một khối bị phá hủy.
-- `BlockPlaceEvent`: Được gọi khi một khối được đặt.
-- Và nhiều sự kiện khác nữa...
-
-### Tạo Một Event Tùy Chỉnh (Optional)
-
-Nếu bạn muốn tạo một event tùy chỉnh để sử dụng trong plugin của bạn, bạn có thể làm như sau:
+> Phương thức `onCommand()` trả về một giá trị kiểu `boolean`. <br>
+> Nó sẽ trả về `true` nếu command được thực thi thành công, và `false` nếu command không được thực thi thành công.
+> 
+> Nếu bạn trả về `false` trong phương thức `onCommand()`, Minecraft sẽ tự động gửi một thông báo đến người gửi command: <br>
+> `Unknown command. Type "/help" for help.`
+> 
+> Vì vậy, nếu bạn muốn câu lệnh hoạt động tốt, hãy trả về `true` trong phương thức `onCommand()`.
+> 
 
 ```java
-package cat_std.broseidon.mc_tutorial.events;
+package cat_std.broseidon.mc_tutorial.commands;
 
-import org.bukkit.event.Event;
-import org.bukkit.event.HandlerList;
-import org.jetbrains.annotations.NotNull;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 
-public class CustomEvent extends Event {
-
-    private static final HandlerList handlers = new HandlerList();
-    private String message;
-
-    public CustomEvent(String example) {
-        message = example;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public static HandlerList getHandlerList() {
-        return handlers;
-    }
+public class HelloCommand implements CommandExecutor {
 
     @Override
-    public @NotNull HandlerList getHandlers() {
-        return handlers;
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (label.equalsIgnoreCase("hello")) {
+            sender.sendMessage("Xin chào!"); // Gửi lời chào khi người chơi sử dụng lệnh /hello
+        }
+        return true;
     }
 }
 ```
 
-> [!NOTE]
-> Trong ví dụ trên, chúng ta đã tạo một event tùy chỉnh có tên là `CustomEvent`. <br>
-> Bạn có thể tìm hiểu cách tạo event tùy chỉnh tại [trang web này](https://bukkit.gamepedia.com/Event_API_Reference#Creating_Custom_Events).
+Tuy nhiên, đây chưa phải là command hoàn chỉnh. Bạn cần thực hiện các bước tiếp theo để có thể sử dụng command của bạn.
 
-## Bước 3: Đăng Ký Listener
-
-Khi bạn đã tạo Listener của mình, bạn cần đăng ký nó để plugin của bạn có thể lắng nghe và phản ứng với các sự kiện.
-
-1. Trong class chính của plugin của bạn (thường là main class), tại phương thức `onEnable()` ta sẽ đăng ký listener của mình.
+2. **Đăng Ký Command**: Trong class chính của plugin (thường là main class), đăng ký command của bạn bằng cách sử dụng phương thức `getCommand()` và `setExecutor()`.
 
 ```java
 package cat_std.broseidon.mc_tutorial;
 
+import cat_std.broseidon.mc_tutorial.commands.HelloCommand;
 import cat_std.broseidon.mc_tutorial.events.MyEventListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -126,7 +91,9 @@ public final class MC_Tutorial extends JavaPlugin {
     @Override
     public void onEnable() {
         // Method này sẽ được gọi khi Plugin được bật
-        getServer().getPluginManager().registerEvents(new MyEventListener(), this); // Đăng ký listener
+        getServer().getPluginManager().registerEvents(new MyEventListener(), this);
+        
+        getCommand("hello").setExecutor(new HelloCommand()); // Đăng ký lệnh /hello
     }
 
     @Override
@@ -137,54 +104,138 @@ public final class MC_Tutorial extends JavaPlugin {
 
 ```
 
-2. Bây giờ listener của bạn đã được đăng ký và sẽ lắng nghe các sự kiện bạn đã xác định trong `MyEventListener`.
+Ngoài ra, bạn cần phải khai báo command trong file `resources/plugin.yml` của bạn.
 
-> [!NOTE]
-> Trong ví dụ trên, chúng ta đã sử dụng phương thức `registerEvents()` để đăng ký listener của mình. <br>
-> Bạn có thể tìm hiểu thêm về cách đăng ký listener tại [trang web này](https://bukkit.gamepedia.com/Event_API_Reference#Registering_Events).
+```yaml
+commands:
+  hello: # Tên command
+    description: Hello World Command # Mô tả command
+    usage: /<command> # Cách sử dụng command
+    aliases: [ hi, helloworld ] # Tên gọi khác của command
+```
 
-## Bước 4: Lắng Nghe Event Tùy Chỉnh (Optional)
+## Command Với Tham Số
 
-Nếu bạn muốn các listener của bạn lắng nghe các event tùy chỉnh, bạn có thể làm như sau:
+> [!IMPORTANT]
+> ### Giải thích về `String[] args`
+> 
+> Trong lập trình, một mảng (array) là một tập hợp các giá trị được xếp theo thứ tự trong một biến duy nhất. `String[] args` trong Minecraft plugin cũng là một mảng, nhưng nó chứa các tham số (arguments) mà người chơi hoặc console nhập vào phía sau một câu lệnh.
+> 
+> **Cách Hoạt Động Của Mảng**:
+> 
+> - Mảng sẽ chứa nhiều giá trị và mỗi giá trị được gán một chỉ số (index) riêng. Chúng ta có thể truy cập các giá trị này bằng cách sử dụng chỉ số.
+> - Chỉ số trong mảng bắt đầu từ 0. Điều này có nghĩa là giá trị đầu tiên trong mảng có chỉ số 0, giá trị thứ hai có chỉ số 1, và cứ tiếp tục như vậy.
+> 
+> **Ví Dụ**:
+> 
+> Giả sử bạn có lệnh `/mycommand arg1 arg2 arg3`, thì `String[] args` sẽ như sau:
+> 
+> ```
+> args: ["arg1", "arg2", "arg3"]
+> index:   0       1       2
+> ```
+> 
+> Để truy cập các giá trị này, bạn sử dụng chỉ số tương ứng. Chẳng hạn, `args[0]` sẽ trả về `"arg1"`, `args[1]` sẽ trả về `"arg2"`, và `args[2]` sẽ trả về `"arg3"`.
+> 
+> **Ví dụ Sử Dụng**:
+> 
+> Dưới đây là một ví dụ trong phương thức `onCommand()`:
+> ```java
+> @Override
+> public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+>     if (label.equalsIgnoreCase("mycommand")) {
+>         if (args.length > 0) {
+>             sender.sendMessage("Các đối số đã nhập:");
+>             for (int i = 0; i < args.length; i++) {
+>                 sender.sendMessage("- Đối số thứ " + i + ": " + args[i]);
+>             }
+>         } else {
+>             sender.sendMessage("Bạn chưa nhập bất kỳ đối số nào.");
+>         }
+>         return true;
+>     }
+>     return false;
+> }
+> ```
+> 
+> Trong ví dụ trên, chúng ta sử dụng vòng lặp `for` để duyệt qua tất cả các đối số trong `String[] args` và truy cập chúng bằng chỉ số `i`.
+> 
+> Hãy nhớ rằng chỉ số trong mảng bắt đầu từ 0 và tăng dần lên.
 
-1. Tạo một class mới để đại diện cho sự kiện của bạn, ví dụ: `CustomEvent.java` mà ta đã tạo ở [thao tác trên](#tạo-một-event-tùy-chỉnh-optional)
-
-2. Trong listener của bạn, bạn có thể tạo và gửi sự kiện này khi điều kiện cụ thể xảy ra.
+### Từ bài học trên, bạn có thể tạo một command với tham số như sau:
 
 ```java
-package cat_std.broseidon.mc_tutorial.events;
+package cat_std.broseidon.mc_tutorial.commands;
 
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 
-public class MyEventListener implements Listener {
+public class SayHelloCommand implements CommandExecutor {
 
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        event.getPlayer().sendMessage("Chào mừng bạn đến với server của Broseidon!"); // Gửi tin nhắn đến người chơi khi họ vào server
-    }
-    
-    @EventHandler
-    public void onCustomEvent(CustomEvent event) { // Đây là một ví dụ về việc sử dụng Custom Event
-        System.out.println(event.getMessage());
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (label.equalsIgnoreCase("sayhello")) {
+            if (args.length == 0) {
+                sender.sendMessage("Vui lòng cung cấp tên của bạn!"); // Gửi thông báo nếu không có tham số
+            } else {
+                String playerName = args[0]; // Lấy tham số đầu tiên
+                sender.sendMessage("Xin chào, " + playerName + " từ plugin của bạn!"); // Gửi tin nhắn với tham số
+            }
+        }
+        return true;
     }
 }
 ```
 
-## Bước 5: Chạy Plugin và Kiểm Tra
+> Như vậy, bạn đã tạo thành công một command có tham số `/sayhello <name>`. <br>
+> Và đừng quên đăng ký command trong class chính của plugin nhé!
 
-1. Đảm bảo bạn đã sao chép plugin của bạn vào thư mục `plugins` của máy chủ Minecraft.
+## Command Trên Console
 
-2. Khởi động lại máy chủ Minecraft của bạn hoặc sử dụng lệnh `/reload` để nạp lại plugin.
+Nếu bạn muốn cho phép command được thực thi trên console, bạn cần sử dụng `CommandSender` để kiểm tra ai đã gửi command. <br>
+Hãy xem qua ví dụ sau:
 
-3. Thực hiện hành động hoặc điều kiện mà bạn đã xác định trong listener để kiểm tra sự hoạt động của plugin.
+```java
+package cat_std.broseidon.mc_tutorial.commands;
+
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Player;
+
+public class CheckConsoleCommand implements CommandExecutor {
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (label.equalsIgnoreCase("checkconsole")) {
+            if (sender instanceof ConsoleCommandSender) {
+                // Người gửi command là console
+                sender.sendMessage("Bạn là console.");
+            } else if (sender instanceof Player) {
+                // Người gửi command là một người chơi
+                Player player = (Player) sender;
+                sender.sendMessage("Bạn là người chơi với tên: " + player.getName());
+            } else {
+                // Người gửi không phải là console và cũng không phải là người chơi (ví dụ: command block)
+                sender.sendMessage("Bạn là một loại sender khác.");
+            }
+            return true;
+        }
+        return false;
+    }
+}
+```
 
 ## Kết Luận
 
-> Bài hướng dẫn này đã giới thiệu cho bạn cách sử dụng event và listener trong plugin Minecraft của bạn. Sử dụng event và listener là cách mạnh mẽ để tương tác với sự kiện trong game và tạo ra các tính năng tùy chỉnh thú vị. Hãy tiếp tục học và phát triển plugin của bạn! Để biết thêm thông tin về cách sử dụng event và listener, bạn có thể xem thêm [tài liệu chính thức của Bukkit](https://bukkit.gamepedia.com/Event_API_Reference). <br>
+> Trong bài hướng dẫn này, bạn đã học cách tạo và quản lý các command trong plugin Minecraft của bạn, bao gồm cả command với tham số và command trên console. Command là một cách mạnh mẽ để tương tác với plugin của bạn và cung cấp tính năng tùy chỉnh cho người chơi và máy chủ.
 > 
-> Nếu bạn có bất kì thắc mắc nào, hãy liên hệ với mình qua [Discord](https://discord.com/users/873024375685775361)
+> Nếu bạn gặp bất kỳ vấn đề nào hoặc có câu hỏi, đừng ngần ngại đặt câu hỏi tại trang [Discussion của dự án](https://github.com/leminhbao308/MC-Tutorial/discussions) để nhận sự trợ giúp từ cộng đồng. 
+> Bạn cũng có thể liên hệ với tôi qua [Discord cá nhân](https://discord.com/users/873024375685775361).
+> 
+> Chúc bạn thành công trong việc phát triển plugin Minecraft của mình!
 
 > [!IMPORTANT]  
 > Bài viết này được viết bởi [Lê Minh Bảo]() <br>

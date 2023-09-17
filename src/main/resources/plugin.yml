@@ -2,6 +2,18 @@ name: MC_Tutorial
 version: '${project.version}'
 main: cat_std.broseidon.mc_tutorial.MC_Tutorial
 api-version: '1.20'
-authors: [Broseidon.Java]
+authors: [ Broseidon.Java ]
 description: Tutorial to create Minecraft Plugin
 website: https://leminhbao.com
+
+commands:
+  hello: # Tên command
+    description: Hello World Command # Mô tả command
+    usage: /<command> # Cách sử dụng command
+    aliases: [ hi, helloworld ] # Tên gọi khác của command
+  sayhello:
+    description: Say Hello Command
+    usage: /<command> <name>
+  checkconsole:
+    description: Check Console Command
+    usage: /<command>
