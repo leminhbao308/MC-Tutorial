@@ -16,7 +16,7 @@ Dự án **Minecraft Plugin Tutorial Series** bao gồm các phần sau:
 
 2. **Sử Dụng Event và Listener:** Học cách sử dụng sự kiện và trình nghe (listener) để tương tác với sự kiện trong game.
 
-3. **Làm Việc với Lệnh (Commands):** Tạo và quản lý các lệnh tùy chỉnh trong plugin của bạn.
+3. **Làm Việc với Lệnh (Commands):** Tạo và quản lý các lệnh tùy chỉnh trong plugin của bạn, permission cho một command.
 
 4. **Làm Việc với Cơ Sở Dữ Liệu:** Hướng dẫn cách lưu trữ và truy xuất dữ liệu từ cơ sở dữ liệu trong Minecraft.
 
