@@ -1,4 +1,4 @@
-# MC TUTORIAL 03: COMMANDS AND PERMISSIONS (Part 1)
+# MC TUTORIAL 03: COMMANDS AND PERMISSIONS <br> (Part 1)
 
 > [!NOTE]
 > Trong bài này, bạn sẽ học cách tạo và quản lý các command cho plugin Minecraft của mình. <br>
