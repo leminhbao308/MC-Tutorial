@@ -8,6 +8,19 @@ Chào mọi người và chào mừng đến với dự án **Minecraft Plugin T
 
 Dự án này cung cấp một loạt các bài hướng dẫn chi tiết về việc phát triển các plugin Minecraft từ cơ bản đến nâng cao. Nếu bạn là một nhà phát triển mới bắt đầu và muốn tạo một plugin cho riêng mình, chúng tôi hy vọng rằng các tài liệu trong dự án này sẽ giúp bạn.
 
+## Contributors 🌟
+
+Xin cảm ơn những đóng góp từ những thành viên sau:
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
 ## Nội Dung
 
 Dự án **Minecraft Plugin Tutorial Series** bao gồm các phần sau:
