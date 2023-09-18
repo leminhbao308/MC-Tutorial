@@ -17,3 +17,6 @@ commands:
   checkconsole:
     description: Check Console Command
     usage: /<command>
+  permissionCommand:
+    description: Permission Command
+    usage: /<command>
