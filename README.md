@@ -72,3 +72,15 @@ Dự án này sử dụng giấy phép [MIT License](LICENSE) - Xem file LICENSE
 Nếu bạn có bất kỳ câu hỏi hoặc đề xuất nào liên quan đến dự án này, xin vui lòng liên hệ với tôi qua [Discord Cá Nhân](https://discord.com/users/873024375685775361)
 
 Tôi hy vọng bạn sẽ tận hưởng việc học và phát triển plugin Minecraft của bạn thông qua dự án **Minecraft Plugin Tutorial Series** này. Chúc bạn thành công!
+
+
+## Ủng hộ
+
+Bạn muốn ủng hộ những đóng góp của tôi? <br>
+Hãy thử những cách sau: <br>
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O4O0PBHBO)
+
+Hoặc
+
+> 0399405711 <br>
+> Lê Minh Bảo - Vietinbank / Momo
