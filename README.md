@@ -66,9 +66,8 @@ package cat_std.broseidon.mc_tutorial.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -76,7 +75,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SayHelloCommand implements CommandExecutor, TabCompleter {
+public class SayHelloCommand implements TabExecutor {
+    // TabExecutor là interface kết hợp giữa CommandExecutor và TabCompleter
+    
     // CommandExecutor đã được giới thiệu trong bài hướng dẫn trước
     // {...}
     
@@ -109,6 +110,10 @@ Bạn cần phải đăng ký Tab Completion cho command của bạn trong phư�
 
 ```java
 getCommand("sayhello").setTabCompleter(new SayHelloCommand()); // Đăng ký gợi ý cho lệnh /sayhello
+```
+Nếu bạn dùng TabExecutor bạn chỉ cần [Đăng Ký Command](https://github.com/leminhbao308/MC-Tutorial/tree/03a-command-and-permission#một-command-đơn-giản) (Mục số 2).
+```java
+getCommand("sayhello").setExecutor(new SayHelloCommand()); // Đăng ký lệnh /sayhello
 ```
 
 > [!NOTE]
