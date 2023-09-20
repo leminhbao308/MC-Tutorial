@@ -20,7 +20,7 @@ Xin cảm ơn những đóng góp từ những thành viên sau:
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="http://sunext.net"><img src="https://avatars.githubusercontent.com/u/48017917?v=4?s=100" width="100px;" alt="Duy Khang"/><br /><sub><b>Duy Khang</b></sub></a><br /><a href="https://github.com/leminhbao308/MC-Tutorial/issues?q=assignee%3AHiImSunny" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/HiImSunny"><img src="https://avatars.githubusercontent.com/u/48017917?v=4?s=100" width="100px;" alt="Duy Khang"/><br /><sub><b>Duy Khang</b></sub></a><br /><a href="https://github.com/leminhbao308/MC-Tutorial/issues?q=assignee%3AHiImSunny" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
