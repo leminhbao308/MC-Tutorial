@@ -20,3 +20,6 @@ commands:
   permissionCommand:
     description: Permission Command
     usage: /<command>
+  test:
+    description: Test Command
+    usage: /<command>

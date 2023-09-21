@@ -1,0 +1,16 @@
+boolean: true
+string: "Hello World"
+integer: 42
+array:
+  - 1
+  - 2
+  - 3
+
+materials:
+  - DIAMOND
+  - GOLD_INGOT
+  - IRON_INGOT
+
+outer:
+  inner:
+    string: "Hello World from inner"
