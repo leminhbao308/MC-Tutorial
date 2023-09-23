@@ -49,13 +49,15 @@ Dự án **Minecraft Plugin Tutorial Series** bao gồm các phần sau:
 
 3. **Làm Việc với Lệnh (Commands):** Tạo và quản lý các lệnh tùy chỉnh trong plugin của bạn, permission cho một command.
 
-4. **Làm Việc với Cơ Sở Dữ Liệu:** Hướng dẫn cách lưu trữ và truy xuất dữ liệu từ cơ sở dữ liệu trong Minecraft.
+4. **Các Tính Năng Quan Trọng của SpigotAPI:** Học cách sử dụng các tính năng của SpigotAPI như Entities, Blocks, Materials và ItemStack.
 
 5. **Tối Ưu Hóa Plugin:** Tìm hiểu cách tối ưu hóa plugin của bạn để tăng hiệu suất và đảm bảo tính ổn định.
 
 6. **Kết Hợp với API Ngoại Vi:** Học cách tích hợp plugin của bạn với các API và plugin ngoại vi khác.
 
-7. **Bảo Mật và Quản Lý Quyền Hạn:** Tìm hiểu cách bảo mật plugin của bạn và quản lý quyền hạn người chơi.
+7. **Làm Việc với Cơ Sở Dữ Liệu:** Hướng dẫn cách lưu trữ và truy xuất dữ liệu từ cơ sở dữ liệu trong Minecraft.
+
+8. **Bảo Mật và Giấy Phép:** Nếu bạn mong muốn thương mại hóa plugin của mình, tôi sẽ cung cấp cho bạn một số cách để làm điều này.
 
 ## Hướng Dẫn
 
